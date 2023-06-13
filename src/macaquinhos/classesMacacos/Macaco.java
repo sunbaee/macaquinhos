@@ -1,23 +1,22 @@
-package macaquinhos;
+package macaquinhos.classesMacacos;
+
+import macaquinhos.Acoes;
 
 public class Macaco implements Acoes {
 
     protected String nome;
-    private int pedras;
+    protected int pedras; // 0 - 30
 
-    private int taxaRoubo;   // 0 50
-    private int taxaDefesa;  // 0 25
-    private int taxaColeta;  // 0 - 10
-    private int qntMaxRoubo; 
-    private int defesaInicial;
+    protected int taxaRoubo;   // 0 - 50
+    protected int taxaDefesa;  // 0 - 25
+    protected int taxaColeta;  // 5 - 20 pedrinhas
+    protected int qntMaxRoubo; // 10 - 80 pedrinhas
+    protected int defesaInicial; // =taxaDefesa
 
-    public Macaco(String nome, int pedras, int taxaRoubo, int taxaColeta, int qntMaxRoubo, int defesaInicial) {
+    // CONSTRUTOR
+
+    public Macaco(String nome) {
         this.nome = nome;
-        this.pedras = pedras;
-        this.taxaRoubo = taxaRoubo;
-        this.taxaColeta = taxaColeta;
-        this.qntMaxRoubo = qntMaxRoubo;
-        this.taxaDefesa = this.defesaInicial = defesaInicial;
     }
 
     // GETTERS E SETTERS
@@ -48,19 +47,19 @@ public class Macaco implements Acoes {
 
     // MÉTODOS
 
-    public int Random(int min, int max) {
+    public int random(int min, int max) {
         return (int) (Math.random() * (max - min) + min);
     }
 
-    public void Roubar(Macaco macaco) {
+    public void roubar(Macaco macaco) {
 
-        int r = this.Random(0, 100);
+        int r = this.random(0, 100);
 
         if (r <= this.taxaRoubo && r >= macaco.getTaxaDefesa()) {
 
             int min = this.qntMaxRoubo % 2 == 0 ? this.qntMaxRoubo / 2 : (int) (this.qntMaxRoubo / 2);
 
-            int qtdPedrasRoubadas = Random(min, this.qntMaxRoubo);
+            int qtdPedrasRoubadas = random(min, this.qntMaxRoubo);
 
             if (qtdPedrasRoubadas > macaco.getPedras()) qtdPedrasRoubadas = macaco.getPedras();
 
@@ -76,18 +75,27 @@ public class Macaco implements Acoes {
         macaco.setTaxaDefesa(macaco.getDefesaInicial());
     }
 
-    public void Coletar() {
-        int numPedras = Random(1, taxaColeta);
+    public void coletar() {
+        int numPedras = random(1, taxaColeta);
         this.pedras += numPedras;
 
         System.out.println("Parabéns! Você coletou " + numPedras + " pedrinhas.");
     }
 
-    public void Distrair(int pedrinhas) {
+    public void distrair(int pedrinhas) {
+
         this.pedras -= pedrinhas;   
-        this.taxaDefesa += pedrinhas;
+        this.taxaDefesa += pedrinhas / 5;
 
         System.out.println("Você usou " + pedrinhas + " pedrinhas para distrair o próximo macaquinho que tentar te roubar!");
     }
 
+    public void mostrarDados() {
+        System.out.println("\n////// " + this.nome + " //////\n" +
+                           "\nPEDRAS INICIAIS: " + this.pedras + 
+                           "\nTAXA DE COLETA: " + this.taxaColeta +
+                           "\nCHANCE DE ROUBO: " + this.taxaRoubo + 
+                           "\nPEDRAS DO ROUBO: " + this.qntMaxRoubo / 2 + " ~ " + this.qntMaxRoubo +
+                           "\nDEFESA INICIAL: " + this.defesaInicial);
+    }
 }

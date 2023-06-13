@@ -1,7 +1,9 @@
 package macaquinhos;
 
+import macaquinhos.classesMacacos.Macaco;
+
 public interface Acoes {
-    public void Roubar(Macaco macaco);
-    public void Coletar();
-    public void Distrair(int pedrinhas);
+    public void roubar(Macaco macaco);
+    public void coletar();
+    public void distrair(int pedrinhas);
 }
