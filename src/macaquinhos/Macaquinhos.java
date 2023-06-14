@@ -90,7 +90,7 @@ public class Macaquinhos {
     }
 
     public static void mostrarMacacos() {
-        System.out.println();
+        System.out.println("\n::::::::::::::: VER MACACOS :::::::::::::::\n");
 
         for(int i = 0; i < arrayListaMacacos.length; i++) {
             System.out.println(" " + (i + 1) + " - " + arrayListaMacacos[i]);

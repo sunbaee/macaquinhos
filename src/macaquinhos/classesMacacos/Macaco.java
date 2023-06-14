@@ -91,11 +91,11 @@ public class Macaco implements Acoes {
     }
 
     public void mostrarDados() {
-        System.out.println("\n////// " + this.nome + " //////\n" +
-                           "\nPEDRAS INICIAIS: " + this.pedras + 
-                           "\nTAXA DE COLETA: " + this.taxaColeta +
-                           "\nCHANCE DE ROUBO: " + this.taxaRoubo + 
-                           "\nPEDRAS DO ROUBO: " + this.qntMaxRoubo / 2 + " ~ " + this.qntMaxRoubo +
-                           "\nDEFESA INICIAL: " + this.defesaInicial);
+        System.out.println("\n   " + this.nome + "\n" +
+                           "\n > PEDRAS INICIAIS: " + this.pedras + 
+                           "\n > TAXA DE COLETA: " + this.taxaColeta +
+                           "\n > CHANCE DE ROUBO: " + this.taxaRoubo + 
+                           "\n > PEDRAS DO ROUBO: " + this.qntMaxRoubo / 2 + " ~ " + this.qntMaxRoubo +
+                           "\n > DEFESA INICIAL: " + this.defesaInicial);
     }
 }
