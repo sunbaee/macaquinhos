@@ -19,7 +19,24 @@ public class Macaco implements Acoes {
         this.nome = nome;
     }
 
+    public Macaco(String nome, int pedras, int taxaColeta, int taxaRoubo, int qntMaxRoubo, int defesaInicial) {
+        this.nome = nome;
+        this.pedras = pedras;
+        this.taxaRoubo = taxaRoubo;
+        this.taxaColeta = taxaColeta;
+        this.qntMaxRoubo = qntMaxRoubo;
+        this.taxaDefesa = this.defesaInicial = defesaInicial;
+    }
+
     // GETTERS E SETTERS
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public int getPedras() {
         return pedras;
