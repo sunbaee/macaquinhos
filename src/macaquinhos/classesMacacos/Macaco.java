@@ -64,47 +64,48 @@ public class Macaco implements Acoes {
 
     // MÉTODOS
 
-    public int random(int min, int max) {
+    public static int random(int min, int max) {
         return (int) (Math.random() * (max - min) + min);
     }
 
-    public void roubar(Macaco macaco) {
+    public int roubar(Macaco macaco) {
 
-        int r = this.random(0, 100);
+        int r = Macaco.random(0, 100);
+        macaco.setTaxaDefesa(macaco.getDefesaInicial());
 
         if (r <= this.taxaRoubo && r >= macaco.getTaxaDefesa()) {
 
-            int min = this.qntMaxRoubo % 2 == 0 ? this.qntMaxRoubo / 2 : (int) (this.qntMaxRoubo / 2);
+            int min = (int) (this.qntMaxRoubo / 2);
 
-            int qtdPedrasRoubadas = random(min, this.qntMaxRoubo);
+            int qtdPedrasRoubadas = Macaco.random(min, this.qntMaxRoubo);
 
             if (qtdPedrasRoubadas > macaco.getPedras()) qtdPedrasRoubadas = macaco.getPedras();
 
             this.pedras += qtdPedrasRoubadas;
             macaco.setPedras(macaco.getPedras() - qtdPedrasRoubadas);
 
-            System.out.println("Você roubou com sucesso " + qtdPedrasRoubadas + " pedrinhas.");
+            return qtdPedrasRoubadas;
 
         } else {
-            System.out.println("Roubar é errado! Você não conseguiu roubar nenhuma pedrinha :(");
+            return 0;
         }
-
-        macaco.setTaxaDefesa(macaco.getDefesaInicial());
     }
 
-    public void coletar() {
-        int numPedras = random(1, taxaColeta);
+    public int coletar() {
+        int numPedras = Macaco.random(1, taxaColeta);
         this.pedras += numPedras;
 
-        System.out.println("Parabéns! Você coletou " + numPedras + " pedrinhas.");
+        return numPedras;
     }
 
-    public void distrair(int pedrinhas) {
+    public int distrair(int pedrinhas) {
 
-        this.pedras -= pedrinhas;   
-        this.taxaDefesa += pedrinhas / 5;
+        this.pedras -= pedrinhas;
+        
+        int aumentoDefesa = pedrinhas / 5;
+        this.taxaDefesa += aumentoDefesa;
 
-        System.out.println("Você usou " + pedrinhas + " pedrinhas para distrair o próximo macaquinho que tentar te roubar!");
+        return aumentoDefesa;
     }
 
     public void mostrarDados() {

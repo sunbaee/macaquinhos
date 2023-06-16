@@ -8,12 +8,12 @@ import macaquinhos.classesMacacos.*;
 public class Macaquinhos {
 
     public static Scanner sc = new Scanner(System.in);
-    public static ArrayList<Macaco> ListaMacacos = new ArrayList<Macaco>();
+    public static final ArrayList<Macaco> ListaMacacos = new ArrayList<Macaco>();
     public static void main(String[] args) {
         
-        ListaMacacos.add(new Orangotango("Orangotango (default)"));
-        ListaMacacos.add(new MicoLeaoDourado("Mico-Leão-Dourado (default)"));
-        ListaMacacos.add(new MacacoPrego("Macaco Prego (default)"));
+        ListaMacacos.add(new Orangotango("Orangotango"));
+        ListaMacacos.add(new MicoLeaoDourado("Mico-Leão-Dourado"));
+        ListaMacacos.add(new MacacoPrego("Macaco Prego"));
 
         Jogo jogo = new Jogo(ListaMacacos);
 
