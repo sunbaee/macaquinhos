@@ -14,8 +14,6 @@ public class Macaquinhos {
         ListaMacacos.add(new Orangotango("Orangotango"));
         ListaMacacos.add(new MicoLeaoDourado("Mico-Leão-Dourado"));
         ListaMacacos.add(new MacacoPrego("Macaco Prego"));
-        ListaMacacos.add(new MacacoPrego("Macaco Prego 2"));
-        ListaMacacos.add(new MacacoPrego("Macaco Prego 3"));
 
         Jogo jogo = new Jogo(ListaMacacos);
         boolean continuar = true;

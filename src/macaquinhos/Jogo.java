@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import macaquinhos.classesMacacos.Macaco;
+import macaquinhos.classesMacacos.*;
 
 public class Jogo {
 
@@ -64,7 +64,7 @@ public class Jogo {
         } while(true);
         
     }
-    
+
     public void jogar() {
         String confirmar;
         int escolha;
@@ -341,49 +341,97 @@ public class Jogo {
         String nome, listaAtributos[] = {" > PEDRAS INICIAIS (0~30): ", " > TAXA DE COLETA (5~20): ", " > CHANCE DE ROUBO (0~50)(2x): ", " > PEDRAS DO ROUBO (10~80)(\u00F72): ", " > DEFESA INICIAL (0~25): "};
         int atributosMacaco[] = new int[5];
 
-        do {
-            System.out.println("\n :::::::::::::: ADICIONAR MACACO ::::::::::::::");
-            System.out.print("\n NOME (SEM ESPAÇOS): ");
-            nome = sc.next();
-            sc.nextLine();
+        System.out.println("\n :::::::::::::: ADICIONAR MACACO ::::::::::::::");
+            
+        System.out.println("\n 1 - ADICIONAR MACACO CUSTOMIZADO " + 
+                           "\n 2 - ADICIONAR MACACO PADRÃO " +
+                           "\n 3 - SAIR ");
 
-            if (nome.length() >= 30) {
-                System.out.println("\n NOME DEVE TER MENOS QUE 30 CARACTERES.");
-                continue;
-            }
+        int opc = leituraInt("\n >>> QUAL SUA ESCOLHA ? ", 1, 3);
 
-            break;
+        switch (opc) {
+            case 1:
+                do {
+                System.out.println("\n ::::::::::::::::::: CUSTOM :::::::::::::::::::");
+                System.out.print("\n NOME (SEM ESPAÇOS): ");
+                nome = sc.next();
+                sc.nextLine();
 
-        } while (true);
+                if (nome.length() >= 30) {
+                    System.out.println("\n NOME DEVE TER MENOS QUE 30 CARACTERES.");
+                    continue;
+                }
 
-        do {
+                break;
 
-            int sum = 0;
-            System.out.println("\n (A SOMA DOS ATRIBUTOS NÃO DEVE ULTRAPASSAR 140) \n");
+                } while (true);
 
-            atributosMacaco[0] = this.leituraInt(listaAtributos[0], 0, 30);
-            atributosMacaco[1] = this.leituraInt(listaAtributos[1], 5, 20);
-            atributosMacaco[2] = this.leituraInt(listaAtributos[2], 0, 50) * 2;
-            atributosMacaco[3] = this.leituraInt(listaAtributos[3], 10, 80) / 2;
-            atributosMacaco[4] = this.leituraInt(listaAtributos[4], 0, 25);
+                do {
 
-            for(int num : atributosMacaco) {
-                sum += num;
-            }
+                    int sum = 0;
+                    System.out.println("\n (A SOMA DOS ATRIBUTOS NÃO DEVE ULTRAPASSAR 140) \n");
 
-            if (sum > 140) {
-                continue;
-            }
+                    atributosMacaco[0] = this.leituraInt(listaAtributos[0], 0, 30);
+                    atributosMacaco[1] = this.leituraInt(listaAtributos[1], 5, 20);
+                    atributosMacaco[2] = this.leituraInt(listaAtributos[2], 0, 50) * 2;
+                    atributosMacaco[3] = this.leituraInt(listaAtributos[3], 10, 80) / 2;
+                    atributosMacaco[4] = this.leituraInt(listaAtributos[4], 0, 25);
 
-            atributosMacaco[2] /= 2;
-            atributosMacaco[3] *= 2;
+                    for(int num : atributosMacaco) {
+                        sum += num;
+                    }
 
-            break;
+                    if (sum > 140) {
+                        continue;
+                    }
 
-        } while (true);
+                    atributosMacaco[2] /= 2;
+                    atributosMacaco[3] *= 2;
 
-        System.out.println("\n MACACO ADICIONADO COM SUCESSO.");
-        this.listaMacacos.add(new Macaco(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]));
+                    break;
+
+                } while (true);
+
+                System.out.println("\n MACACO ADICIONADO COM SUCESSO.");
+                this.listaMacacos.add(new Macaco(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]));
+                break;
+            case 2:
+                System.out.println("\n :::::::::::::::::: DEFAULT ::::::::::::::::::");
+                System.out.println("\n 1 - ORANGOTANGO " + 
+                                "\n 2 - MACACO-PREGO " + 
+                                "\n 3 - MICO-LEÃO-DOURADO ");
+
+                int eMacaco = leituraInt("\n >>> QUAL SUA ESCOLHA ? ", 1, 3);
+
+                do {
+                    System.out.print("\n NOME (SEM ESPAÇOS): ");
+                    nome = sc.next();
+                    sc.nextLine();
+
+                    if (nome.length() >= 30) {
+                        System.out.println("\n NOME DEVE TER MENOS QUE 30 CARACTERES.");
+                        continue;
+                    }
+
+                    break;
+
+                } while (true);
+                switch (eMacaco) {
+                    case 1:
+                        listaMacacos.add(new Orangotango(nome));
+                        break;
+                    case 2:
+                        listaMacacos.add(new MacacoPrego(nome));
+                        break;
+                    case 3:
+                        listaMacacos.add(new MicoLeaoDourado(nome));
+                        break;
+                }
+
+                break;
+            case 3:
+                return;
+        } 
     }
 
     public void removerMacaco() {
