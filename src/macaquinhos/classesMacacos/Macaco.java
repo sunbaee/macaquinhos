@@ -6,12 +6,14 @@ public class Macaco implements Acoes {
 
     protected String nome;
     protected int pedras; // 0 - 30
+    protected int pedrasIniciais;
+    protected int id;
 
     protected int taxaRoubo;   // 0 - 50
     protected int taxaDefesa;  // 0 - 25
+    protected int defesaInicial; // =taxaDefesa
     protected int taxaColeta;  // 5 - 20 pedrinhas
     protected int qntMaxRoubo; // 10 - 80 pedrinhas
-    protected int defesaInicial; // =taxaDefesa
 
     // CONSTRUTOR
 
@@ -21,7 +23,8 @@ public class Macaco implements Acoes {
 
     public Macaco(String nome, int pedras, int taxaColeta, int taxaRoubo, int qntMaxRoubo, int defesaInicial) {
         this.nome = nome;
-        this.pedras = pedras;
+        this.pedras = this.pedrasIniciais = pedras;
+        
         this.taxaRoubo = taxaRoubo;
         this.taxaColeta = taxaColeta;
         this.qntMaxRoubo = qntMaxRoubo;
@@ -115,5 +118,10 @@ public class Macaco implements Acoes {
                            "\n > CHANCE DE ROUBO: " + this.taxaRoubo + 
                            "\n > PEDRAS DO ROUBO: " + this.qntMaxRoubo / 2 + " ~ " + this.qntMaxRoubo +
                            "\n > DEFESA INICIAL: " + this.defesaInicial);
+    }
+
+    public void resetar() {
+        this.taxaDefesa = this.defesaInicial;
+        this.pedras = this.pedrasIniciais;
     }
 }

@@ -1,6 +1,7 @@
 package macaquinhos;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -81,22 +82,39 @@ public class Jogo {
 
             System.out.print("\n CONFIRMAR? (S/N) : ");
             confirmar = sc.next();
+            sc.nextLine();
 
             if(!confirmar.equalsIgnoreCase("S") && !confirmar.equalsIgnoreCase("N")) System.out.println("\nINSIRA UM VALOR VÁLIDO ... ");
 
             if(!confirmar.equalsIgnoreCase("S")) continue;
             
-            int numMacacos = this.leituraInt("\n >>> DESEJA JOGAR CONTRA QUANTOS MACACOS (MIN: 4) ? ", 4);            
-            
+            int numMacacos = this.leituraInt("\n >>> DESEJA JOGAR CONTRA QUANTOS MACACOS (MIN: 4) ? ", 4);        
+
+            if(numMacacos > listaMacacos.size() - 1) {
+                System.out.println("\n !!! QUANTIDADE DE MACACOS INSUFICIENTES.");
+                System.out.print("\n ESCREVA ALGO E APERTE ENTER PARA CONTINUAR ... ");
+                sc.next();
+                sc.nextLine();
+                break;
+            }
+
             // DEFININDO MACACO USER
 
             Macaco macacosJogando[] = new Macaco[numMacacos + 1];
             macacosJogando[0] = listaMacacos.get(escolha - 1);
 
-            // DEFININDO MACACOS INIMIGOS
+            // DEFININDO MACACOS INIMIGOS (nenhum objeto macaco se repetirá)
+
+            int numMacacoIRandom; // numero aleatorio do macaco inimigo
 
             for(int i = 1; i < macacosJogando.length; i++) {
-                macacosJogando[i] = listaMacacos.get(Macaco.random(0, listaMacacos.size()));
+                numMacacoIRandom = Macaco.random(0, listaMacacos.size());
+
+                while (Arrays.asList(macacosJogando).contains(listaMacacos.get(numMacacoIRandom))) {
+                    numMacacoIRandom = Macaco.random(0, listaMacacos.size());
+                }
+
+                macacosJogando[i] = listaMacacos.get(numMacacoIRandom);
             }
 
             // MENU DE ATAQUE
@@ -108,7 +126,9 @@ public class Jogo {
             for(int i = 0; i < rodadas; i++) {
 
                 System.out.println("\n RODADA " + (i + 1));
-                System.out.println("\n num pedras: " + macacosJogando[0].getPedras());
+                System.out.println("\n SUAS PEDRAS:  " + macacosJogando[0].getPedras());
+                System.out.println(" DEFESA ATUAL: " + macacosJogando[0].getTaxaDefesa());
+
                 int acao;
 
                 do {
@@ -230,6 +250,8 @@ public class Jogo {
                             break;
                     }
                 }
+                System.out.println("\n ::::::::::::::: ::::::::::::::: ::::::::::::::: ");
+
             }
 
             // DEFININDO MACACO REI
@@ -249,10 +271,14 @@ public class Jogo {
             System.out.println("\n ::::::::: !!! A RAINHA DECIDIU !!! ::::::::: ");
             if (id != 0) {
                 System.out.println("\n O REI DOS MACACOS É " + rei.getNome() + "(" + id + ") !!! ");
+                resetarMacacos(macacosJogando);
+
                 break;
-                }
+            }
 
             System.out.println("\n VOCÊ É O REI DOS MACACOS !!! ");
+            resetarMacacos(macacosJogando);
+
             break;
 
         } while(true);
@@ -436,5 +462,11 @@ public class Jogo {
 
         System.out.println("\n MACACO EDITADO COM SUCESSO.");
         this.listaMacacos.set(edit - 1, new Macaco(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]));
+    }
+
+    public void resetarMacacos(Macaco macacosJogando[]) {
+        for(Macaco m : macacosJogando) {
+                m.resetar();
+            }
     }
 }
