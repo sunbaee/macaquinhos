@@ -215,8 +215,12 @@ public class Jogo {
                     
                     switch (acaoRandom) {
                         case 0:
-
                             int numRandom = Macaco.random(0, macacosJogando.length);
+                            
+                            while (numRandom == j) {
+                                numRandom = Macaco.random(0, macacosJogando.length); 
+                            }
+
                             Macaco macacoRandom = macacosJogando[numRandom];
 
                             int roubo = macaco.roubar(macacoRandom);
