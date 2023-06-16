@@ -338,7 +338,7 @@ public class Jogo {
 
     public void adicionarMacaco() {
 
-        String nome, listaAtributos[] = {" > PEDRAS INICIAIS (0~30): ", " > TAXA DE COLETA (5~20): ", " > CHANCE DE ROUBO (0~50)(2x): ", " > PEDRAS DO ROUBO (10~80)(\u00F72): ", " > DEFESA INICIAL (0~25): "};
+        String nome, listaAtributos[] = {" > PEDRAS INICIAIS (0~30): ", " > TAXA DE COLETA (5~20): ", " > CHANCE DE ROUBO (0~50)(2x): ", " > PEDRAS DO ROUBO (10~120)(\u00F72): ", " > DEFESA INICIAL (0~25): "};
         int atributosMacaco[] = new int[5];
 
         System.out.println("\n :::::::::::::: ADICIONAR MACACO ::::::::::::::");
@@ -374,7 +374,7 @@ public class Jogo {
                     atributosMacaco[0] = this.leituraInt(listaAtributos[0], 0, 30);
                     atributosMacaco[1] = this.leituraInt(listaAtributos[1], 5, 20);
                     atributosMacaco[2] = this.leituraInt(listaAtributos[2], 0, 50) * 2;
-                    atributosMacaco[3] = this.leituraInt(listaAtributos[3], 10, 80) / 2;
+                    atributosMacaco[3] = this.leituraInt(listaAtributos[3], 10, 120) / 2;
                     atributosMacaco[4] = this.leituraInt(listaAtributos[4], 0, 25);
 
                     for(int num : atributosMacaco) {
@@ -464,7 +464,7 @@ public class Jogo {
 
         int edit = this.leituraInt("\n INSIRA O MACACO A SER EDITADO (EXCETO MACACOS PADRÕES): ", 4, this.listaMacacos.size());
 
-        String nome, listaAtributos[] = {" > PEDRAS INICIAIS (0~30): ", " > TAXA DE COLETA (5~20): ", " > CHANCE DE ROUBO (0~50)(2x): ", " > PEDRAS DO ROUBO (10~80)(\u00F72): ", " > DEFESA INICIAL (0~25): "};
+        String nome, listaAtributos[] = {" > PEDRAS INICIAIS (0~30): ", " > TAXA DE COLETA (5~20): ", " > CHANCE DE ROUBO (0~50)(2x): ", " > PEDRAS DO ROUBO (10~120)(\u00F72): ", " > DEFESA INICIAL (0~25): "};
         int atributosMacaco[] = new int[5];
 
         do {
@@ -490,7 +490,7 @@ public class Jogo {
             atributosMacaco[0] = this.leituraInt(listaAtributos[0], 0, 30);
             atributosMacaco[1] = this.leituraInt(listaAtributos[1], 5, 20);
             atributosMacaco[2] = this.leituraInt(listaAtributos[2], 0, 50) * 2;
-            atributosMacaco[3] = this.leituraInt(listaAtributos[3], 10, 80) / 2;
+            atributosMacaco[3] = this.leituraInt(listaAtributos[3], 10, 120) / 2;
             atributosMacaco[4] = this.leituraInt(listaAtributos[4], 0, 25);
 
             for(int num : atributosMacaco) {
