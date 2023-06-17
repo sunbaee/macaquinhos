@@ -78,7 +78,8 @@ public class Jogo {
                 System.out.println(" " + (i + 1) + " - " + this.listaMacacos.get(i).getNome());
             }
 
-            escolha = this.leituraInt("\n >>> QUAL SUA ESCOLHA ? ", 1, this.listaMacacos.size());
+            escolha = this.leituraInt("\n >>> QUAL SUA ESCOLHA ? (0 PARA SAIR) ", 0, this.listaMacacos.size());
+            if (escolha == 0) return;
 
             System.out.print("\n CONFIRMAR? (S/N) : ");
             confirmar = sc.next();
@@ -327,7 +328,9 @@ public class Jogo {
 
         this.mostrarListaMacacos();
 
-        int opc = this.leituraInt("\n >>> SELECIONE ALGUMA OPÇÃO : ", 1, this.listaMacacos.size());
+        int opc = this.leituraInt("\n >>> SELECIONE ALGUMA OPÇÃO (0 PARA SAIR): ", 0, this.listaMacacos.size());
+        if (opc == 0) return;
+
         this.listaMacacos.get(opc - 1).mostrarDados();
         System.out.print("\n ESCREVA ALGO E APERTE ENTER PARA CONTINUAR ... ");
         sc.next();
@@ -342,7 +345,7 @@ public class Jogo {
 
     public void adicionarMacaco() {
 
-        String nome, listaAtributos[] = {" > PEDRAS INICIAIS (0~30): ", " > TAXA DE COLETA (5~20): ", " > CHANCE DE ROUBO (0~50)(2x): ", " > PEDRAS DO ROUBO (10~120)(\u00F72): ", " > DEFESA INICIAL (0~25): "};
+        String nome, listaAtributos[] = {" > PEDRAS INICIAIS (0~30): ", " > TAXA DE COLETA (5~20): ", " > CHANCE DE ROUBO (0~60)(2x): ", " > PEDRAS DO ROUBO (10~120)(\u00F72): ", " > DEFESA INICIAL (0~25): "};
         int atributosMacaco[] = new int[5];
 
         System.out.println("\n :::::::::::::: ADICIONAR MACACO ::::::::::::::");
@@ -373,11 +376,11 @@ public class Jogo {
                 do {
 
                     int sum = 0;
-                    System.out.println("\n (A SOMA DOS ATRIBUTOS NÃO DEVE ULTRAPASSAR 140) \n");
+                    System.out.println("\n (A SOMA DOS ATRIBUTOS NÃO DEVE ULTRAPASSAR 160) \n");
 
                     atributosMacaco[0] = this.leituraInt(listaAtributos[0], 0, 30);
                     atributosMacaco[1] = this.leituraInt(listaAtributos[1], 5, 20);
-                    atributosMacaco[2] = this.leituraInt(listaAtributos[2], 0, 50) * 2;
+                    atributosMacaco[2] = this.leituraInt(listaAtributos[2], 0, 60) * 2;
                     atributosMacaco[3] = this.leituraInt(listaAtributos[3], 10, 120) / 2;
                     atributosMacaco[4] = this.leituraInt(listaAtributos[4], 0, 25);
 
@@ -385,7 +388,7 @@ public class Jogo {
                         sum += num;
                     }
 
-                    if (sum > 140) {
+                    if (sum > 160) {
                         continue;
                     }
 
@@ -447,8 +450,20 @@ public class Jogo {
         System.out.println();
 
         this.mostrarListaMacacos();
+        int rem;
 
-        int rem = this.leituraInt("\n >>> SELECIONE O MACACO A SER REMOVIDO (EXCETO MACACOS PADRÕES): ", 4, this.listaMacacos.size());
+        do {
+            rem = this.leituraInt("\n > INSIRA O MACACO A SER REMOVIDO (EXCETO MACACOS PADRÕES | 0 PARA SAIR): ", 0, this.listaMacacos.size());
+            if (rem == 0) return;
+
+            if (rem >= 1 && rem <= 3) {
+                System.out.println("\n NÃO É POSSÍVEL REMOVER MACACOS PADRÕES DO SISTEMA.");
+                continue;
+            }
+
+            break;
+        } while (true);
+
         this.listaMacacos.remove(rem - 1);
 
         System.out.println("\n MACACO REMOVIDO COM SUCESSO.");
@@ -465,10 +480,21 @@ public class Jogo {
         System.out.println();
 
         this.mostrarListaMacacos();
+        int edit;
 
-        int edit = this.leituraInt("\n INSIRA O MACACO A SER EDITADO (EXCETO MACACOS PADRÕES): ", 4, this.listaMacacos.size());
+        do {
+            edit = this.leituraInt("\n > INSIRA O MACACO A SER EDITADO (EXCETO MACACOS PADRÕES | 0 PARA SAIR): ", 0, this.listaMacacos.size());
+            if (edit == 0) return;
 
-        String nome, listaAtributos[] = {" > PEDRAS INICIAIS (0~30): ", " > TAXA DE COLETA (5~20): ", " > CHANCE DE ROUBO (0~50)(2x): ", " > PEDRAS DO ROUBO (10~120)(\u00F72): ", " > DEFESA INICIAL (0~25): "};
+            if (edit >= 1 && edit <= 3) {
+                System.out.println("\n NÃO É POSSÍVEL EDITAR MACACOS PADRÕES DO SISTEMA.");
+                continue;
+            }
+
+            break;
+        } while (true);
+            
+        String nome, listaAtributos[] = {" > PEDRAS INICIAIS (0~30): ", " > TAXA DE COLETA (5~20): ", " > CHANCE DE ROUBO (0~60)(2x): ", " > PEDRAS DO ROUBO (10~120)(\u00F72): ", " > DEFESA INICIAL (0~25): "};
         int atributosMacaco[] = new int[5];
 
         do {
@@ -489,11 +515,11 @@ public class Jogo {
         do {
 
             int sum = 0;
-            System.out.println("\n (A SOMA DOS ATRIBUTOS NÃO DEVE ULTRAPASSAR 140) \n");
+            System.out.println("\n (A SOMA DOS ATRIBUTOS NÃO DEVE ULTRAPASSAR 160) \n");
 
             atributosMacaco[0] = this.leituraInt(listaAtributos[0], 0, 30);
             atributosMacaco[1] = this.leituraInt(listaAtributos[1], 5, 20);
-            atributosMacaco[2] = this.leituraInt(listaAtributos[2], 0, 50) * 2;
+            atributosMacaco[2] = this.leituraInt(listaAtributos[2], 0, 60) * 2;
             atributosMacaco[3] = this.leituraInt(listaAtributos[3], 10, 120) / 2;
             atributosMacaco[4] = this.leituraInt(listaAtributos[4], 0, 25);
 
@@ -501,7 +527,7 @@ public class Jogo {
                 sum += num;
             }
 
-            if (sum > 140) {
+            if (sum > 160) {
                 continue;
             }
 

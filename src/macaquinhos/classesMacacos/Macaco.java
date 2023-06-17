@@ -9,7 +9,7 @@ public class Macaco implements Acoes {
     protected int pedrasIniciais;
     protected int id;
 
-    protected int taxaRoubo;   // 0 - 50
+    protected int taxaRoubo;   // 0 - 60
     protected int taxaDefesa;  // 0 - 25
     protected int defesaInicial; // =taxaDefesa
     protected int taxaColeta;  // 5 - 20 pedrinhas
