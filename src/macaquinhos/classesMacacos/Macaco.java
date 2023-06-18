@@ -2,7 +2,7 @@ package macaquinhos.classesMacacos;
 
 import macaquinhos.Acoes;
 
-public class Macaco implements Acoes {
+public abstract class Macaco implements Acoes {
 
     protected String nome;
     protected int pedras; // 0 - 30
