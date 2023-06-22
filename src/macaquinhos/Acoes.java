@@ -1,6 +1,6 @@
 package macaquinhos;
 
-import macaquinhos.classesMacacos.Macaco;
+import macaquinhos.Macacos.Macaco;
 
 public interface Acoes {
     public int roubar(Macaco macaco);

@@ -3,7 +3,8 @@ package macaquinhos;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import macaquinhos.classesMacacos.*;
+import macaquinhos.Macacos.*;
+import macaquinhos.Macacos.macacos_floresta.*;
 
 public class Macaquinhos {
 

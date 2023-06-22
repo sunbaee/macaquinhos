@@ -1,4 +1,7 @@
-package macaquinhos.classesMacacos;
+package macaquinhos.Macacos.macacos_floresta;
+
+import macaquinhos.Ambientes.Ambiente;
+import macaquinhos.Macacos.Macaco;
 
 public class MicoLeaoDourado extends Macaco {
 
@@ -9,6 +12,7 @@ public class MicoLeaoDourado extends Macaco {
         this.taxaColeta = 18;
         this.qntMaxRoubo = 60;
         this.taxaDefesa = this.defesaInicial = 12;
+        this.ambiente = Ambiente.ambientes[0];
     }
     
 }

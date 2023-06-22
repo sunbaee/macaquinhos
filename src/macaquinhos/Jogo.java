@@ -5,14 +5,18 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import macaquinhos.classesMacacos.*;
+import macaquinhos.Macacos.*;
+import macaquinhos.Macacos.macacos_floresta.MacacoPrego;
+import macaquinhos.Macacos.macacos_floresta.MicoLeaoDourado;
+import macaquinhos.Macacos.macacos_floresta.Orangotango;
 
 public class Jogo {
 
-    ArrayList<Macaco> listaMacacos;
+    ArrayList<Macaco> preListaMacacos;
+    ArrayList<Macaco> listaMacacos = new ArrayList<Macaco>();
 
-    public Jogo(ArrayList<Macaco> ListaMacacos) {
-        this.listaMacacos = ListaMacacos;
+    public Jogo(ArrayList<Macaco> preListaMacacos) {
+        this.preListaMacacos = preListaMacacos;
     }
 
     public static Scanner sc = new Scanner(System.in);
@@ -66,6 +70,19 @@ public class Jogo {
     }
 
     public void jogar() {
+
+        System.out.println("\n 1 - FLORESTA" +
+                           "\n 2 - SAVANA" + 
+                           "\n 3 - PÂNTANO");
+        
+        int habitat = this.leituraInt("\n >>> SELECIONE UM HABITAT : ", 1, 3);
+
+        for(int i = 0; i < this.preListaMacacos.size(); i++) {
+            if (this.preListaMacacos.get(i).getAmbiente().getDificuldade() == (habitat - 1)) {
+                this.listaMacacos.add(preListaMacacos.get(i));
+            }
+        }
+
         String confirmar;
         int escolha;
         
@@ -89,7 +106,7 @@ public class Jogo {
 
             if(!confirmar.equalsIgnoreCase("S")) continue;
             
-            int numMacacos = this.leituraInt("\n >>> DESEJA JOGAR CONTRA QUANTOS MACACOS (MIN: 4) ? ", 4);        
+            int numMacacos = this.leituraInt("\n >>> DESEJA JOGAR CONTRA QUANTOS MACACOS (MIN: 4) ? ", 4);
 
             if(numMacacos > listaMacacos.size() - 1) {
                 System.out.println("\n !!! QUANTIDADE DE MACACOS INSUFICIENTES.");
@@ -379,14 +396,24 @@ public class Jogo {
                     System.out.println("\n (A SOMA DOS ATRIBUTOS NÃO DEVE ULTRAPASSAR 160) \n");
 
                     atributosMacaco[0] = this.leituraInt(listaAtributos[0], 0, 30);
+                    sum += atributosMacaco[0];
+                    System.out.println("\n TOTAL : " + sum);
+                    System.out.println();
                     atributosMacaco[1] = this.leituraInt(listaAtributos[1], 5, 20);
+                    sum += atributosMacaco[1];
+                    System.out.println("\n TOTAL : " + sum);
+                    System.out.println();
                     atributosMacaco[2] = this.leituraInt(listaAtributos[2], 0, 60) * 2;
+                    sum += atributosMacaco[2];
+                    System.out.println("\n TOTAL : " + sum);
+                    System.out.println();
                     atributosMacaco[3] = this.leituraInt(listaAtributos[3], 10, 120) / 2;
+                    sum += atributosMacaco[3];
+                    System.out.println("\n TOTAL : " + sum);
+                    System.out.println();
                     atributosMacaco[4] = this.leituraInt(listaAtributos[4], 0, 25);
-
-                    for(int num : atributosMacaco) {
-                        sum += num;
-                    }
+                    sum += atributosMacaco[4];
+                    System.out.println("\n TOTAL : " + sum);
 
                     if (sum > 160) {
                         continue;
@@ -437,7 +464,6 @@ public class Jogo {
 
                 break;
             case 3:
-                return;
         } 
     }
 
@@ -518,14 +544,25 @@ public class Jogo {
             System.out.println("\n (A SOMA DOS ATRIBUTOS NÃO DEVE ULTRAPASSAR 160) \n");
 
             atributosMacaco[0] = this.leituraInt(listaAtributos[0], 0, 30);
+            sum += atributosMacaco[0];
+            System.out.println("\n TOTAL : " + sum);
+            System.out.println();
             atributosMacaco[1] = this.leituraInt(listaAtributos[1], 5, 20);
+            sum += atributosMacaco[1];
+            System.out.println("\n TOTAL : " + sum);
+            System.out.println();
             atributosMacaco[2] = this.leituraInt(listaAtributos[2], 0, 60) * 2;
+            sum += atributosMacaco[2];
+            System.out.println("\n TOTAL : " + sum);
+            System.out.println();
             atributosMacaco[3] = this.leituraInt(listaAtributos[3], 10, 120) / 2;
+            sum += atributosMacaco[3];
+            System.out.println("\n TOTAL : " + sum);
+            System.out.println();
             atributosMacaco[4] = this.leituraInt(listaAtributos[4], 0, 25);
-
-            for(int num : atributosMacaco) {
-                sum += num;
-            }
+            sum += atributosMacaco[4];
+            System.out.println("\n TOTAL : " + sum);
+            System.out.println();
 
             if (sum > 160) {
                 continue;

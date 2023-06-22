@@ -1,4 +1,7 @@
-package macaquinhos.classesMacacos;
+package macaquinhos.Macacos.macacos_floresta;
+
+import macaquinhos.Ambientes.Ambiente;
+import macaquinhos.Macacos.Macaco;
 
 public class Orangotango extends Macaco {
 
@@ -9,6 +12,7 @@ public class Orangotango extends Macaco {
         this.taxaColeta = 15;
         this.qntMaxRoubo = 120;
         this.taxaDefesa = this.defesaInicial = 15;
+        this.ambiente = Ambiente.ambientes[0];
     }
     
 }
