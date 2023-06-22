@@ -2,12 +2,12 @@ package macaquinhos.classesMacacos;
 
 import macaquinhos.Acoes;
 
-public class Macaco implements Acoes {
-
+public abstract class Macaco implements Acoes {
+        
     protected String nome;
-    protected int pedras; // 0 - 30
+    
+    protected int pedras;
     protected int pedrasIniciais;
-    protected int id;
 
     protected int taxaRoubo;   // 0 - 60
     protected int taxaDefesa;  // 0 - 25
@@ -23,7 +23,8 @@ public class Macaco implements Acoes {
 
     public Macaco(String nome, int pedras, int taxaColeta, int taxaRoubo, int qntMaxRoubo, int defesaInicial) {
         this.nome = nome;
-        this.pedras = this.pedrasIniciais = pedras;
+        
+        this.pedras = pedras;
         
         this.taxaRoubo = taxaRoubo;
         this.taxaColeta = taxaColeta;
@@ -71,6 +72,7 @@ public class Macaco implements Acoes {
         return (int) (Math.random() * (max - min) + min);
     }
 
+    @Override
     public int roubar(Macaco macaco) {
 
         int r = Macaco.random(0, 100);
@@ -94,6 +96,7 @@ public class Macaco implements Acoes {
         }
     }
 
+    @Override
     public int coletar() {
         int numPedras = Macaco.random(1, taxaColeta);
         this.pedras += numPedras;
@@ -101,6 +104,7 @@ public class Macaco implements Acoes {
         return numPedras;
     }
 
+    @Override
     public int distrair(int pedrinhas) {
 
         this.pedras -= pedrinhas;

@@ -379,14 +379,25 @@ public class Jogo {
                     System.out.println("\n (A SOMA DOS ATRIBUTOS NÃO DEVE ULTRAPASSAR 160) \n");
 
                     atributosMacaco[0] = this.leituraInt(listaAtributos[0], 0, 30);
+                    sum += atributosMacaco[0];
+                    System.out.println("\n TOTAL : " + sum);
+                    System.out.println();
                     atributosMacaco[1] = this.leituraInt(listaAtributos[1], 5, 20);
+                    sum += atributosMacaco[1];
+                    System.out.println("\n TOTAL : " + sum);
+                    System.out.println();
                     atributosMacaco[2] = this.leituraInt(listaAtributos[2], 0, 60) * 2;
+                    sum += atributosMacaco[2];
+                    System.out.println("\n TOTAL : " + sum);
+                    System.out.println();
                     atributosMacaco[3] = this.leituraInt(listaAtributos[3], 10, 120) / 2;
+                    sum += atributosMacaco[3];
+                    System.out.println("\n TOTAL : " + sum);
+                    System.out.println();
                     atributosMacaco[4] = this.leituraInt(listaAtributos[4], 0, 25);
-
-                    for(int num : atributosMacaco) {
-                        sum += num;
-                    }
+                    sum += atributosMacaco[4];
+                    System.out.println("\n TOTAL : " + sum);
+                    System.out.println();
 
                     if (sum > 160) {
                         continue;
@@ -400,7 +411,7 @@ public class Jogo {
                 } while (true);
 
                 System.out.println("\n MACACO ADICIONADO COM SUCESSO.");
-                this.listaMacacos.add(new Macaco(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]));
+                this.listaMacacos.add(new Custom(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]));
                 break;
             case 2:
                 System.out.println("\n :::::::::::::::::: DEFAULT ::::::::::::::::::");
@@ -437,7 +448,6 @@ public class Jogo {
 
                 break;
             case 3:
-                return;
         } 
     }
 
@@ -518,14 +528,25 @@ public class Jogo {
             System.out.println("\n (A SOMA DOS ATRIBUTOS NÃO DEVE ULTRAPASSAR 160) \n");
 
             atributosMacaco[0] = this.leituraInt(listaAtributos[0], 0, 30);
+            sum += atributosMacaco[0];
+            System.out.println("\n TOTAL : " + sum);
+            System.out.println();
             atributosMacaco[1] = this.leituraInt(listaAtributos[1], 5, 20);
+            sum += atributosMacaco[1];
+            System.out.println("\n TOTAL : " + sum);
+            System.out.println();
             atributosMacaco[2] = this.leituraInt(listaAtributos[2], 0, 60) * 2;
+            sum += atributosMacaco[2];
+            System.out.println("\n TOTAL : " + sum);
+            System.out.println();
             atributosMacaco[3] = this.leituraInt(listaAtributos[3], 10, 120) / 2;
+            sum += atributosMacaco[3];
+            System.out.println("\n TOTAL : " + sum);
+            System.out.println();
             atributosMacaco[4] = this.leituraInt(listaAtributos[4], 0, 25);
-
-            for(int num : atributosMacaco) {
-                sum += num;
-            }
+            sum += atributosMacaco[4];
+            System.out.println("\n TOTAL : " + sum);
+            System.out.println();
 
             if (sum > 160) {
                 continue;
@@ -539,7 +560,7 @@ public class Jogo {
         } while (true);
 
         System.out.println("\n MACACO EDITADO COM SUCESSO.");
-        this.listaMacacos.set(edit - 1, new Macaco(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]));
+        this.listaMacacos.set(edit - 1, new Custom(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]));
     }
 
     public void resetarMacacos(Macaco macacosJogando[]) {
