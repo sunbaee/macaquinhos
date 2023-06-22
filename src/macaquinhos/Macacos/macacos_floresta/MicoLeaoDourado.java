@@ -12,7 +12,7 @@ public class MicoLeaoDourado extends Macaco {
         this.taxaColeta = 18;
         this.qntMaxRoubo = 60;
         this.taxaDefesa = this.defesaInicial = 12;
-        this.ambiente = Ambiente.ambientes[0];
+        this.ambiente = Ambiente.ambientes[1];
     }
     
 }

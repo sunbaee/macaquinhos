@@ -12,7 +12,7 @@ public class Orangotango extends Macaco {
         this.taxaColeta = 15;
         this.qntMaxRoubo = 120;
         this.taxaDefesa = this.defesaInicial = 15;
-        this.ambiente = Ambiente.ambientes[0];
+        this.ambiente = Ambiente.ambientes[1];
     }
     
 }

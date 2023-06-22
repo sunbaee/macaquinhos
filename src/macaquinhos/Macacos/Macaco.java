@@ -130,7 +130,8 @@ public abstract class Macaco implements Acoes {
                            "\n > TAXA DE COLETA: " + this.taxaColeta +
                            "\n > CHANCE DE ROUBO: " + this.taxaRoubo + 
                            "\n > PEDRAS DO ROUBO: " + this.qntMaxRoubo / 2 + " ~ " + this.qntMaxRoubo +
-                           "\n > DEFESA INICIAL: " + this.defesaInicial);
+                           "\n > DEFESA INICIAL: " + this.defesaInicial +
+                           "\n > AMBIENTE: " + this.ambiente.getNome());
     }
 
     public void resetar() {

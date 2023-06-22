@@ -12,11 +12,11 @@ import macaquinhos.Macacos.macacos_floresta.Orangotango;
 
 public class Jogo {
 
-    ArrayList<Macaco> preListaMacacos;
-    ArrayList<Macaco> listaMacacos = new ArrayList<Macaco>();
+    ArrayList<Macaco> listaMacacos;
+    ArrayList<Macaco> macacosAtivos = new ArrayList<Macaco>();;
 
-    public Jogo(ArrayList<Macaco> preListaMacacos) {
-        this.preListaMacacos = preListaMacacos;
+    public Jogo(ArrayList<Macaco> listaMacacos) {
+        this.listaMacacos = listaMacacos;
     }
 
     public static Scanner sc = new Scanner(System.in);
@@ -71,15 +71,20 @@ public class Jogo {
 
     public void jogar() {
 
-        System.out.println("\n 1 - FLORESTA" +
-                           "\n 2 - SAVANA" + 
-                           "\n 3 - PÂNTANO");
-        
-        int habitat = this.leituraInt("\n >>> SELECIONE UM HABITAT : ", 1, 3);
+        macacosAtivos = new ArrayList<Macaco>();
 
-        for(int i = 0; i < this.preListaMacacos.size(); i++) {
-            if (this.preListaMacacos.get(i).getAmbiente().getDificuldade() == (habitat - 1)) {
-                this.listaMacacos.add(preListaMacacos.get(i));
+        System.out.println("\n 1 - FLORESTA (FÁCIL)" +
+                           "\n 2 - SAVANA   (MÉDIO)" + 
+                           "\n 3 - PÂNTANO  (DIFÍCIL)");
+        
+        int habitat = this.leituraInt("\n >>> SELECIONE UM HABITAT (0 PARA SAIR): ", 0, 3);
+        if (habitat == 0) return;
+
+        for(int i = 0; i < this.listaMacacos.size(); i++) {
+            int dificuldade = this.listaMacacos.get(i).getAmbiente().getDificuldade();
+
+            if (dificuldade == (habitat) || dificuldade == 0) {
+                this.macacosAtivos.add(listaMacacos.get(i));
             }
         }
 
@@ -91,11 +96,11 @@ public class Jogo {
             System.out.println("\n > QUEM SERÁ O REI DOS MACACOS ?");
             System.out.println("\n :::::::::: SELECIONE SEU MACACO ::::::::::\n");
 
-            for (int i = 0; i < this.listaMacacos.size(); i++) {
-                System.out.println(" " + (i + 1) + " - " + this.listaMacacos.get(i).getNome());
+            for (int i = 0; i < this.macacosAtivos.size(); i++) {
+                System.out.println(" " + (i + 1) + " - " + this.macacosAtivos.get(i).getNome());
             }
 
-            escolha = this.leituraInt("\n >>> QUAL SUA ESCOLHA ? (0 PARA SAIR) ", 0, this.listaMacacos.size());
+            escolha = this.leituraInt("\n >>> QUAL SUA ESCOLHA ? (0 PARA SAIR) ", 0, this.macacosAtivos.size());
             if (escolha == 0) return;
 
             System.out.print("\n CONFIRMAR? (S/N) : ");
@@ -108,7 +113,7 @@ public class Jogo {
             
             int numMacacos = this.leituraInt("\n >>> DESEJA JOGAR CONTRA QUANTOS MACACOS (MIN: 4) ? ", 4);
 
-            if(numMacacos > listaMacacos.size() - 1) {
+            if(numMacacos > macacosAtivos.size() - 1) {
                 System.out.println("\n !!! QUANTIDADE DE MACACOS INSUFICIENTES.");
                 System.out.print("\n ESCREVA ALGO E APERTE ENTER PARA CONTINUAR ... ");
                 sc.next();
@@ -119,20 +124,20 @@ public class Jogo {
             // DEFININDO MACACO USER
 
             Macaco macacosJogando[] = new Macaco[numMacacos + 1];
-            macacosJogando[0] = listaMacacos.get(escolha - 1);
+            macacosJogando[0] = macacosAtivos.get(escolha - 1);
 
             // DEFININDO MACACOS INIMIGOS (nenhum objeto macaco se repetirá)
 
             int numMacacoIRandom; // numero aleatorio do macaco inimigo
 
             for(int i = 1; i < macacosJogando.length; i++) {
-                numMacacoIRandom = Macaco.random(0, listaMacacos.size());
+                numMacacoIRandom = Macaco.random(0, macacosAtivos.size());
 
-                while (Arrays.asList(macacosJogando).contains(listaMacacos.get(numMacacoIRandom))) {
-                    numMacacoIRandom = Macaco.random(0, listaMacacos.size());
+                while (Arrays.asList(macacosJogando).contains(macacosAtivos.get(numMacacoIRandom))) {
+                    numMacacoIRandom = Macaco.random(0, macacosAtivos.size());
                 }
 
-                macacosJogando[i] = listaMacacos.get(numMacacoIRandom);
+                macacosJogando[i] = macacosAtivos.get(numMacacoIRandom);
             }
 
             // MENU DE ATAQUE
@@ -426,7 +431,7 @@ public class Jogo {
 
                 } while (true);
 
-                System.out.println("\n MACACO ADICIONADO COM SUCESSO.");
+                System.out.println("\n ! MACACO ADICIONADO COM SUCESSO !");
                 this.listaMacacos.add(new Custom(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]));
                 break;
             case 2:
@@ -462,6 +467,7 @@ public class Jogo {
                         break;
                 }
 
+                System.out.println("\n ! MACACO ADICIONADO COM SUCESSO !");
                 break;
             case 3:
         } 
@@ -469,7 +475,7 @@ public class Jogo {
 
     public void removerMacaco() {
         if (this.listaMacacos.size() <= 3) {
-            System.out.println(" \n NÃO EXISTEM MACACOS PARA SEREM REMOVIDOS.");
+            System.out.println(" \n ! NÃO EXISTEM MACACOS PARA SEREM REMOVIDOS !");
             return;
         }
 
@@ -492,14 +498,14 @@ public class Jogo {
 
         this.listaMacacos.remove(rem - 1);
 
-        System.out.println("\n MACACO REMOVIDO COM SUCESSO.");
+        System.out.println("\n ! MACACO REMOVIDO COM SUCESSO !");
 
     }
 
     public void editarMacaco() {
 
         if (this.listaMacacos.size() <= 3) {
-            System.out.println(" \n NÃO EXISTEM MACACOS PARA SEREM EDITADOS.");
+            System.out.println(" \n ! NÃO EXISTEM MACACOS PARA SEREM EDITADOS !");
             return;
         }
 
@@ -575,7 +581,7 @@ public class Jogo {
 
         } while (true);
 
-        System.out.println("\n MACACO EDITADO COM SUCESSO.");
+        System.out.println("\n ! MACACO EDITADO COM SUCESSO !");
         this.listaMacacos.set(edit - 1, new Custom(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]));
     }
 

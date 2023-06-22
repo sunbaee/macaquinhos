@@ -4,7 +4,7 @@ public class Savana extends Ambiente {
 
     public Savana(String nome) {
         super(nome);
-        this.dificuldade = 1;
+        this.dificuldade = 2;
     }
     
 }

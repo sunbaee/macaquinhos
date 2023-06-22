@@ -4,7 +4,7 @@ public class Pantano extends Ambiente {
 
     public Pantano(String nome) {
         super(nome);
-        this.dificuldade = 2;
+        this.dificuldade = 3;
     }
 
 }

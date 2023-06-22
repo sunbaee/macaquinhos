@@ -4,7 +4,7 @@ public class Floresta extends Ambiente {
 
     public Floresta(String nome) {
         super(nome);
-        this.dificuldade = 0;
+        this.dificuldade = 1;
     }
     
 }

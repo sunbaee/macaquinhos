@@ -2,7 +2,7 @@ package macaquinhos.Ambientes;
 
 public abstract class Ambiente {
 
-    public static final Ambiente ambientes[] = {new Floresta("Floresta"), new Savana("Savana"), new Pantano("Pântano")};
+    public static final Ambiente ambientes[] = {new Indefinido("Indefinido"), new Floresta("Floresta"), new Savana("Savana"), new Pantano("Pântano")};
     protected String nome;
     protected int dificuldade;
 
