@@ -5,8 +5,8 @@ import macaquinhos.Macacos.Macaco;
 
 public class MicoLeaoDourado extends Macaco {
 
-    public MicoLeaoDourado(String nome) {
-        super(nome);
+    public MicoLeaoDourado(String nome, int id) {
+        super(nome, id);
         this.pedras = 5;
         this.taxaRoubo = 40;
         this.taxaColeta = 18;

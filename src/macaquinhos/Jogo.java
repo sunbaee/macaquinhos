@@ -107,7 +107,7 @@ public class Jogo {
             confirmar = sc.next();
             sc.nextLine();
 
-            if(!confirmar.equalsIgnoreCase("S") && !confirmar.equalsIgnoreCase("N")) System.out.println("\nINSIRA UM VALOR VÁLIDO ... ");
+            if(!confirmar.equalsIgnoreCase("S") && !confirmar.equalsIgnoreCase("N")) System.out.println("\n INSIRA UM VALOR VÁLIDO ... ");
 
             if(!confirmar.equalsIgnoreCase("S")) continue;
             
@@ -361,7 +361,7 @@ public class Jogo {
 
     public void mostrarListaMacacos() {
         for(int i = 0; i < this.listaMacacos.size(); i++) {
-            System.out.println(" " + (i + 1) + " - " + this.listaMacacos.get(i).getNome());
+            System.out.println(" " + this.listaMacacos.get(i).getId() + " - " + this.listaMacacos.get(i).getNome());
         }
     }
 
@@ -433,7 +433,7 @@ public class Jogo {
                 } while (true);
 
                 System.out.println("\n ! MACACO ADICIONADO COM SUCESSO !");
-                macacoAdicionado = new Custom(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]);
+                macacoAdicionado = new Custom(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4], this.listaMacacos.size() + 1);
                 this.listaMacacos.add(macacoAdicionado);
                 macacoAdicionado.cadastrar();
                 break;
@@ -461,17 +461,17 @@ public class Jogo {
                 
                 switch (eMacaco) {
                     case 1:
-                        macacoAdicionado = new Orangotango(nome);
+                        macacoAdicionado = new Orangotango(nome, this.listaMacacos.size() + 1);
                         this.listaMacacos.add(macacoAdicionado);
                         macacoAdicionado.cadastrar();
                         break;
                     case 2:
-                        macacoAdicionado = new MacacoPrego(nome);
+                        macacoAdicionado = new MacacoPrego(nome, this.listaMacacos.size() + 1);
                         this.listaMacacos.add(macacoAdicionado);
                         macacoAdicionado.cadastrar();
                         break;
                     case 3:
-                        macacoAdicionado = new MicoLeaoDourado(nome);
+                        macacoAdicionado = new MicoLeaoDourado(nome, this.listaMacacos.size() + 1);
                         this.listaMacacos.add(macacoAdicionado);
                         macacoAdicionado.cadastrar();
                         break;
@@ -507,8 +507,8 @@ public class Jogo {
         } while (true);
 
         System.out.println("\n ! MACACO REMOVIDO COM SUCESSO !");
-        this.listaMacacos.remove(rem - 1);
         Macaco.excluir(rem);
+        this.listaMacacos = Macaco.getMacacos();
     }
 
     public void editarMacaco() {
@@ -591,7 +591,7 @@ public class Jogo {
         } while (true);
 
         System.out.println("\n ! MACACO EDITADO COM SUCESSO !");
-        Macaco macacoEditado = new Custom(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]);
+        Macaco macacoEditado = new Custom(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4], this.listaMacacos.size());
         this.listaMacacos.set(edit - 1, macacoEditado);
         macacoEditado.editar(edit);
     }

@@ -1,6 +1,7 @@
 package macaquinhos.Macacos;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import macaquinhos.Acoes;
 import macaquinhos.Ambientes.Ambiente;
@@ -13,6 +14,7 @@ public abstract class Macaco implements Acoes {
     protected int pedras; // 0 - 30
     protected int pedrasIniciais; // =pedras
     protected int tipo;
+    protected int id;
 
     protected int taxaRoubo;   // 0 - 60
     protected int taxaDefesa;  // 0 - 25
@@ -23,11 +25,12 @@ public abstract class Macaco implements Acoes {
 
     // CONSTRUTOR
 
-    public Macaco(String nome) {
+    public Macaco(String nome, int id) {
         this.nome = nome;
+        this.id = id;
     }
 
-    public Macaco(String nome, int pedras, int taxaColeta, int taxaRoubo, int qntMaxRoubo, int defesaInicial) {
+    public Macaco(String nome, int pedras, int taxaColeta, int taxaRoubo, int qntMaxRoubo, int defesaInicial, int id) {
         this.nome = nome;
         
         this.pedras = pedras;
@@ -36,6 +39,7 @@ public abstract class Macaco implements Acoes {
         this.taxaColeta = taxaColeta;
         this.qntMaxRoubo = qntMaxRoubo;
         this.taxaDefesa = this.defesaInicial = defesaInicial;
+        this.id = id;
     }
 
     // GETTERS E SETTERS
@@ -80,6 +84,14 @@ public abstract class Macaco implements Acoes {
         this.ambiente = ambiente;
     }
     
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     // MÉTODOS
 
     public static int random(int min, int max) {
@@ -177,23 +189,54 @@ public abstract class Macaco implements Acoes {
         Conexao.executar( sql );
     }
     
-    public static void excluir(int id){
-        String sql =  "delete from macaco where id = " + id;
-        Conexao.executar( sql );
+    public static void excluir(int id) {
+        String deleteString =  "delete from macaco where id = " + id;
+        Conexao.executar( deleteString );
+
+        // AJUSTANDO IDS
+
+        String countString = " select count(id) as contando from Macaco ";
+        ResultSet rs = Conexao.consultar( countString );
+
+        if (rs != null) {
+            int numMacacos;
+
+            try {
+                String updateIdString;
+                String alterAutoIncrementString;
+
+                while (rs.next()) {
+                    numMacacos = rs.getInt("contando");
+                    System.out.println("numMacacos: " + numMacacos);
+
+                    updateIdString = " update Macaco set id = id - 1 where Macaco.id > " + id + ";";
+
+                    Conexao.executar( updateIdString );
+                    System.out.println("atualizou ids");
+
+                    alterAutoIncrementString = "alter table Macaco auto_increment = " + (numMacacos + 1);
+                    System.out.println("mudou auto_increment");
+                    Conexao.executar( alterAutoIncrementString );
+                }
+            } catch (SQLException e) {
+                System.out.println("==> deu ruim" + e);
+            }
+        }
     }
 
     public static ArrayList<Macaco> getMacacos(){
         ArrayList<Macaco> lista = new ArrayList<>();
         
-        String sql = "select id, nome, pedras, taxaRoubo, qntMaxRoubo, taxaDefesa, taxaColeta, tipo"
-                + " from macaco order by id ";
+        String sql = " select id, nome, pedras, taxaRoubo, qntMaxRoubo, taxaDefesa, taxaColeta, tipo "
+                   + " from macaco order by id ";
         
         ResultSet rs = Conexao.consultar( sql );
         
         if( rs != null){
             
-            try{
-                while ( rs.next() ) {                
+            try {
+                while ( rs.next() ) {         
+                    int id = rs.getInt(1);       
                     String nome = rs.getString( 2 );
                     int pedras = rs.getInt( 3 );
                     int taxaRoubo = rs.getInt( 4 );
@@ -206,19 +249,19 @@ public abstract class Macaco implements Acoes {
                     
                     switch(tipo) {
                         case 0: 
-                            macaco = new Custom(nome, pedras, taxaColeta, taxaRoubo, qntMaxRoubo, defesaInicial);
+                            macaco = new Custom(nome, pedras, taxaColeta, taxaRoubo, qntMaxRoubo, defesaInicial, id);
                             break;
                         case 1:
-                            macaco = new MacacoPrego(nome);
+                            macaco = new MacacoPrego(nome, id);
                             break;
                         case 2:
-                            macaco = new MicoLeaoDourado(nome);
+                            macaco = new MicoLeaoDourado(nome, id);
                             break;
                         case 3: 
-                            macaco = new Orangotango(nome);
+                            macaco = new Orangotango(nome, id);
                             break;
                         default:
-                            macaco = new Custom(nome, pedras, taxaColeta, taxaRoubo, qntMaxRoubo, defesaInicial);
+                            macaco = new Custom(nome, pedras, taxaColeta, taxaRoubo, qntMaxRoubo, defesaInicial, id);
                     }
    
                     lista.add( macaco );

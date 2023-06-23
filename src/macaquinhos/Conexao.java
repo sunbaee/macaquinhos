@@ -12,7 +12,7 @@ public class Conexao {
     private static final String USER = "root";
     
     // para quem instalou o XAMPP
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String SENHA = "";
     
     

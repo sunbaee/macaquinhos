@@ -1,0 +1,19 @@
+create table Ambiente (
+	id int not null auto_increment,
+    nome varchar(100) not null,
+    dificuldade int not null
+);
+
+create table Macaco (
+	id int not null auto_increment,
+    nome varchar(30) not null,
+    pedras int not null,
+    taxaRoubo int not null,
+    qntMaxRoubo int not null,
+    taxaColeta int not null,
+    taxaDefesa int not null,
+    idAmbiente int not null,
+    tipo int not null,
+    primary key (id),
+    foreign key (idAmbiente) references Ambiente(id)
+);

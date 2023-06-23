@@ -5,8 +5,8 @@ import macaquinhos.Macacos.Macaco;
 
 public class MacacoPrego extends Macaco {
 
-    public MacacoPrego(String nome) {
-        super(nome);
+    public MacacoPrego(String nome, int id) {
+        super(nome, id);
         this.pedras = 8;
         this.taxaRoubo = 35;
         this.taxaColeta = 12;
