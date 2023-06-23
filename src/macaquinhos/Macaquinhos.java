@@ -4,19 +4,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import macaquinhos.Macacos.*;
-import macaquinhos.Macacos.macacos_floresta.*;
 
 public class Macaquinhos {
 
     public static Scanner sc = new Scanner(System.in);
-    public static final ArrayList<Macaco> ListaMacacos = new ArrayList<Macaco>();
+    public static final ArrayList<Macaco> listaMacacos = Macaco.getMacacos();
     public static void main(String[] args) {
-        
-        ListaMacacos.add(new Orangotango("Orangotango"));
-        ListaMacacos.add(new MicoLeaoDourado("Mico-Leão-Dourado"));
-        ListaMacacos.add(new MacacoPrego("Macaco Prego"));
 
-        Jogo jogo = new Jogo(ListaMacacos);
+        Jogo jogo = new Jogo(listaMacacos);
         boolean continuar = true;
         
         do {

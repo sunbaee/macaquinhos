@@ -1,13 +1,18 @@
 package macaquinhos.Macacos;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import macaquinhos.Acoes;
 import macaquinhos.Ambientes.Ambiente;
+import macaquinhos.Conexao;
+import macaquinhos.Macacos.macacos_floresta.*;
 
 public abstract class Macaco implements Acoes {
         
     protected String nome;
     protected int pedras; // 0 - 30
     protected int pedrasIniciais; // =pedras
+    protected int tipo;
 
     protected int taxaRoubo;   // 0 - 60
     protected int taxaDefesa;  // 0 - 25
@@ -137,5 +142,93 @@ public abstract class Macaco implements Acoes {
     public void resetar() {
         this.taxaDefesa = this.defesaInicial;
         this.pedras = this.pedrasIniciais;
+    }
+    
+    // CONEXAO BANCO DE DADOS
+    
+    public void cadastrar(){ 
+      
+        String sql =  "insert into Macaco (nome, pedras, taxaRoubo, qntMaxRoubo, taxaColeta, taxaDefesa, idAmbiente, tipo) values"
+                + "('" + this.nome + "', "
+                + this.pedras      + ", "
+                + this.taxaRoubo   + ", "
+                + this.qntMaxRoubo + ", "
+                + this.taxaColeta  + ", "
+                + this.taxaDefesa  + ", "
+                + (this.ambiente.getDificuldade() + 1) + ", "
+                + this.tipo + ")";
+
+        //System.out.println(sql);
+        Conexao.executar( sql );
+        
+    }
+    
+    public void editar(int id){
+        String sql =  "update Macaco set "
+                    + " nome        = '" + this.nome +   "' ,  "
+                    + " pedras      = "  + this.pedras +  " ,  "
+                    + " taxaRoubo   = "  + this.taxaRoubo +  " ,  "
+                    + " qntMaxRoubo = "  + this.qntMaxRoubo +  " ,  "
+                    + " taxaDefesa  = "  + this.taxaDefesa +  " ,  "
+                    + " taxaColeta  = "  + this.taxaColeta +  " ,  "
+                    + " idAmbiente  = "  + (this.ambiente.getDificuldade() + 1) + " ,  "
+                    + " tipo = " + this.tipo + ""
+                    + " where id = " + id;
+        Conexao.executar( sql );
+    }
+    
+    public static void excluir(int id){
+        String sql =  "delete from macaco where id = " + id;
+        Conexao.executar( sql );
+    }
+
+    public static ArrayList<Macaco> getMacacos(){
+        ArrayList<Macaco> lista = new ArrayList<>();
+        
+        String sql = "select id, nome, pedras, taxaRoubo, qntMaxRoubo, taxaDefesa, taxaColeta, tipo"
+                + " from macaco order by id ";
+        
+        ResultSet rs = Conexao.consultar( sql );
+        
+        if( rs != null){
+            
+            try{
+                while ( rs.next() ) {                
+                    String nome = rs.getString( 2 );
+                    int pedras = rs.getInt( 3 );
+                    int taxaRoubo = rs.getInt( 4 );
+                    int qntMaxRoubo = rs.getInt( 5 );
+                    int defesaInicial = rs.getInt( 6 );
+                    int taxaColeta = rs.getInt( 7 );
+                    int tipo = rs.getInt(8);
+                    
+                    Macaco macaco;
+                    
+                    switch(tipo) {
+                        case 0: 
+                            macaco = new Custom(nome, pedras, taxaColeta, taxaRoubo, qntMaxRoubo, defesaInicial);
+                            break;
+                        case 1:
+                            macaco = new MacacoPrego(nome);
+                            break;
+                        case 2:
+                            macaco = new MicoLeaoDourado(nome);
+                            break;
+                        case 3: 
+                            macaco = new Orangotango(nome);
+                            break;
+                        default:
+                            macaco = new Custom(nome, pedras, taxaColeta, taxaRoubo, qntMaxRoubo, defesaInicial);
+                    }
+   
+                    lista.add( macaco );
+                }
+            }catch(Exception e){
+                System.out.println("==>" + e);
+            }
+            
+        }
+  
+        return lista;
     }
 }

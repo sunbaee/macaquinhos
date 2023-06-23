@@ -13,6 +13,7 @@ public class Orangotango extends Macaco {
         this.qntMaxRoubo = 120;
         this.taxaDefesa = this.defesaInicial = 15;
         this.ambiente = Ambiente.ambientes[1];
+        this.tipo = 3;
     }
     
 }

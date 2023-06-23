@@ -13,6 +13,7 @@ public class MacacoPrego extends Macaco {
         this.qntMaxRoubo = 70;
         this.taxaDefesa = this.defesaInicial = 10;
         this.ambiente = Ambiente.ambientes[1];
+        this.tipo = 1;
     }
     
 }

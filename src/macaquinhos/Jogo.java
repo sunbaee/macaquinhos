@@ -13,7 +13,7 @@ import macaquinhos.Macacos.macacos_floresta.Orangotango;
 public class Jogo {
 
     ArrayList<Macaco> listaMacacos;
-    ArrayList<Macaco> macacosAtivos = new ArrayList<Macaco>();;
+    ArrayList<Macaco> macacosAtivos;
 
     public Jogo(ArrayList<Macaco> listaMacacos) {
         this.listaMacacos = listaMacacos;
@@ -71,7 +71,7 @@ public class Jogo {
 
     public void jogar() {
 
-        macacosAtivos = new ArrayList<Macaco>();
+        macacosAtivos = new ArrayList<>();
 
         System.out.println("\n 1 - FLORESTA (FÁCIL)" +
                            "\n 2 - SAVANA   (MÉDIO)" + 
@@ -377,6 +377,7 @@ public class Jogo {
                            "\n 3 - SAIR ");
 
         int opc = leituraInt("\n >>> QUAL SUA ESCOLHA ? ", 1, 3);
+        Macaco macacoAdicionado;
 
         switch (opc) {
             case 1:
@@ -432,7 +433,9 @@ public class Jogo {
                 } while (true);
 
                 System.out.println("\n ! MACACO ADICIONADO COM SUCESSO !");
-                this.listaMacacos.add(new Custom(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]));
+                macacoAdicionado = new Custom(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]);
+                this.listaMacacos.add(macacoAdicionado);
+                macacoAdicionado.cadastrar();
                 break;
             case 2:
                 System.out.println("\n :::::::::::::::::: DEFAULT ::::::::::::::::::");
@@ -455,18 +458,25 @@ public class Jogo {
                     break;
 
                 } while (true);
+                
                 switch (eMacaco) {
                     case 1:
-                        listaMacacos.add(new Orangotango(nome));
+                        macacoAdicionado = new Orangotango(nome);
+                        this.listaMacacos.add(macacoAdicionado);
+                        macacoAdicionado.cadastrar();
                         break;
                     case 2:
-                        listaMacacos.add(new MacacoPrego(nome));
+                        macacoAdicionado = new MacacoPrego(nome);
+                        this.listaMacacos.add(macacoAdicionado);
+                        macacoAdicionado.cadastrar();
                         break;
                     case 3:
-                        listaMacacos.add(new MicoLeaoDourado(nome));
+                        macacoAdicionado = new MicoLeaoDourado(nome);
+                        this.listaMacacos.add(macacoAdicionado);
+                        macacoAdicionado.cadastrar();
                         break;
                 }
-
+                
                 System.out.println("\n ! MACACO ADICIONADO COM SUCESSO !");
                 break;
             case 3:
@@ -496,10 +506,9 @@ public class Jogo {
             break;
         } while (true);
 
-        this.listaMacacos.remove(rem - 1);
-
         System.out.println("\n ! MACACO REMOVIDO COM SUCESSO !");
-
+        this.listaMacacos.remove(rem - 1);
+        Macaco.excluir(rem);
     }
 
     public void editarMacaco() {
@@ -582,7 +591,9 @@ public class Jogo {
         } while (true);
 
         System.out.println("\n ! MACACO EDITADO COM SUCESSO !");
-        this.listaMacacos.set(edit - 1, new Custom(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]));
+        Macaco macacoEditado = new Custom(nome, atributosMacaco[0], atributosMacaco[1], atributosMacaco[2], atributosMacaco[3], atributosMacaco[4]);
+        this.listaMacacos.set(edit - 1, macacoEditado);
+        macacoEditado.editar(edit);
     }
 
     public void resetarMacacos(Macaco macacosJogando[]) {
