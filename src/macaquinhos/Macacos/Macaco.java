@@ -135,7 +135,7 @@ public abstract class Macaco implements Acoes {
 
         this.pedras -= pedrinhas;
         
-        int aumentoDefesa = pedrinhas / 5;
+        int aumentoDefesa = pedrinhas / 2;
         this.taxaDefesa += aumentoDefesa;
 
         return aumentoDefesa;
@@ -207,19 +207,16 @@ public abstract class Macaco implements Acoes {
 
                 while (rs.next()) {
                     numMacacos = rs.getInt("contando");
-                    System.out.println("numMacacos: " + numMacacos);
 
                     updateIdString = " update Macaco set id = id - 1 where Macaco.id > " + id + ";";
 
                     Conexao.executar( updateIdString );
-                    System.out.println("atualizou ids");
 
                     alterAutoIncrementString = "alter table Macaco auto_increment = " + (numMacacos + 1);
-                    System.out.println("mudou auto_increment");
                     Conexao.executar( alterAutoIncrementString );
                 }
             } catch (SQLException e) {
-                System.out.println("==> deu ruim" + e);
+                System.out.println("==> deu ruim : " + e);
             }
         }
     }

@@ -111,7 +111,7 @@ public class Jogo {
 
             if(!confirmar.equalsIgnoreCase("S")) continue;
             
-            int numMacacos = this.leituraInt("\n >>> DESEJA JOGAR CONTRA QUANTOS MACACOS (MIN: 4) ? ", 4);
+            int numMacacos = this.leituraInt("\n >>> DESEJA JOGAR CONTRA QUANTOS MACACOS (MIN: 2, MAX: 5) ? ", 2, 5);
 
             if(numMacacos > macacosAtivos.size() - 1) {
                 System.out.println("\n !!! QUANTIDADE DE MACACOS INSUFICIENTES.");
@@ -142,7 +142,7 @@ public class Jogo {
 
             // MENU DE ATAQUE
 
-            int rodadas = this.leituraInt("\n >>> DESEJA QUE O JOGO TENHA QUANTAS RODADAS (MIN: 4) ? ", 4);
+            int rodadas = this.leituraInt("\n >>> DESEJA QUE O JOGO TENHA QUANTAS RODADAS (MIN: 5) ? ", 5);
 
             System.out.println("\n :::::::::::: !!! BOM JOGO !!! :::::::::::: ");
 
@@ -193,7 +193,7 @@ public class Jogo {
                         if (roubo == 0) {
                             System.out.println("\n Roubar é errado! Você não conseguiu roubar nenhuma pedrinha :(");
                         } else {
-                            System.out.println("\n " + macacosJogando[0].getNome() + " (Você) roubou " + roubo + " pedrinhas de " + macacosJogando[macacoRoubado].getNome() + " (" + macacoRoubado + ").");
+                            System.out.println("\n " + macacosJogando[0].getNome() + " (Você) roubou " + roubo + " pedrinhas de " + macacosJogando[macacoRoubado].getNome() + "(" + macacoRoubado + ").");
                         }
 
                         break;
@@ -203,10 +203,10 @@ public class Jogo {
                         int pedrinhas;
 
                         do {
-                            pedrinhas = leituraInt("\n INSIRA UM MÚLTIPLO DE 5 (MIN: 5, MAX: 50) : ", 5, 50);
+                            pedrinhas = leituraInt("\n INSIRA UM MÚLTIPLO DE 2 (MIN: 2, MAX: 20) : ", 2, 20);
 
-                            if (pedrinhas % 5 != 0) {
-                                System.out.println("\n INSIRA SOMENTE MÚLTIPLOS DE 5 .");
+                            if (pedrinhas % 2 != 0) {
+                                System.out.println("\n INSIRA SOMENTE MÚLTIPLOS DE 2.");
                                 continue;
                             }
                             if (macacosJogando[0].getPedras() < pedrinhas) {
@@ -215,12 +215,13 @@ public class Jogo {
                             }
                             
                             break;
+
                         } while(true);
 
                         int aumentoDefesa = macacosJogando[0].distrair(pedrinhas);
 
                         System.out.println("\n ::::::::::::::: TELA DE AÇÕES ::::::::::::::: \n" +
-                                           "\n " + macacosJogando[0].getNome() + " (Você) usou " + pedrinhas + " pedrinhas para distrair o próximo macaquinho que tentar roubá-lo! (+ " + aumentoDefesa +"DEF)");
+                                           "\n " + macacosJogando[0].getNome() + " (Você) usou " + pedrinhas + " pedrinhas para distrair o próximo macaquinho que tentar roubá-lo! (+ " + aumentoDefesa +"DEF).");
                         break;
 
                 }
@@ -230,56 +231,61 @@ public class Jogo {
                 for(int j = 1; j < macacosJogando.length; j++) {
 
                     Macaco macaco = macacosJogando[j];
-                    int acaoRandom = Macaco.random(0, 3);
+                    int acaoRandom = Macaco.random(0, 100);
+                    int porcDif = (int) (100 / (5 - habitat)); // uma porcentagem baseada na dificuldade do jogo
+                    int porcDist = 80 + (habitat * 5); // a partir de q porcentagem o macaco irá distrair os outros
 
                     if (macaco.getPedras() < 5) {
-                        acaoRandom = Macaco.random(0, 2);
+                        acaoRandom = Macaco.random(0, porcDist);
                     }
                     
-                    switch (acaoRandom) {
-                        case 0:
-                            int numRandom = Macaco.random(0, macacosJogando.length);
-                            
-                            while (numRandom == j) {
-                                numRandom = Macaco.random(0, macacosJogando.length); 
-                            }
+                    if (acaoRandom <= porcDif) {
 
-                            Macaco macacoRandom = macacosJogando[numRandom];
+                        int numRandom = Macaco.random(0, macacosJogando.length);
+                        int chanceExtra = Macaco.random(0, 100);
 
-                            int roubo = macaco.roubar(macacoRandom);
+                        if (chanceExtra <= porcDif) {
+                            numRandom = 0;
+                        }
 
-                            if (roubo == 0) {
-                                if(numRandom == 0) {
-                                    System.out.println(" " + macaco.getNome() + "(" + j + ") tentou roubar de você, mas falhou!");
-                                } else {
-                                    System.out.println(" " + macaco.getNome() + "(" + j + ") tentou roubar de " + macacoRandom.getNome() + "(" + numRandom + "), mas falhou!");
-                                }
-                            } else if (numRandom == 0) {
-                                    System.out.println(" " + macaco.getNome() + "(" + j + ") roubou " + roubo + " pedrinhas de você! Boa sorte recuperando as pedrinhas :P");
+                        while (numRandom == j) {
+                            numRandom = Macaco.random(0, macacosJogando.length); 
+                        }
+
+                        Macaco macacoRandom = macacosJogando[numRandom];
+
+                        int roubo = macaco.roubar(macacoRandom);
+
+                        if (roubo == 0) {
+                            if(numRandom == 0) {
+                                System.out.print(" " + macaco.getNome() + " (" + j + ") tentou roubar de você, mas falhou!");
                             } else {
-                                    System.out.println(" " + macaco.getNome() + "(" + j + ") roubou " + roubo + " pedrinhas de " + macacoRandom.getNome() + "(" + numRandom + ").");
-                            }   
-                            
-                            break;
+                                System.out.print(" " + macaco.getNome() + " (" + j + ") tentou roubar de " + macacoRandom.getNome() + "(" + numRandom + "), mas falhou!");
+                            }
+                        } else if (numRandom == 0) {
+                                System.out.print(" " + macaco.getNome() + " (" + j + ") roubou " + roubo + " pedrinhas de você! Boa sorte recuperando as pedrinhas :P");
+                        } else {
+                                System.out.print(" " + macaco.getNome() + " (" + j + ") roubou " + roubo + " pedrinhas de " + macacoRandom.getNome() + "(" + numRandom + ").");
+                        }   
 
-                        case 1:
+                    } else if (acaoRandom > porcDist) {
 
-                            int coleta = macaco.coletar();
-                            System.out.println(" " + macaco.getNome() + "(" + j + ") coletou " + coleta + " pedrinhas.");
-                            break;
+                            int pedrinhas = Macaco.random(1, (int) ((macaco.getPedras() + 2) / 2)) * 2;
 
-                        case 2:
-
-                            int pedrinhas = Macaco.random(1, (int) ((macaco.getPedras() + 5) / 5)) * 5;
+                            if (macaco.getPedras() > 20) {
+                                pedrinhas = Macaco.random(1, 11) * 2;
+                            }
                             
                             int aumentoDefesa = macaco.distrair(pedrinhas);
-                            System.out.println(" " + macaco.getNome() + "(" + j + ") usou " + pedrinhas + " pedrinhas para distrair o próximo macaquinho que tentar roubá-lo! (+ " + aumentoDefesa + "DEF).");
-                            break;
+                            System.out.print(" " + macaco.getNome() + " (" + j + ") usou " + pedrinhas + " pedrinhas para distrair o próximo macaquinho que tentar roubá-lo! (+ " + aumentoDefesa + "DEF).");
+                    } else {
+                            int coleta = macaco.coletar();
+                            System.out.print(" " + macaco.getNome() + " (" + j + ") coletou " + coleta + " pedrinhas.");
                     }
+                    System.out.println(" (TOTAL: " + macaco.getPedras() +" P.)");
                 }
-                System.out.println("\n ::::::::::::::: ::::::::::::::: ::::::::::::::: ");
-
             }
+                System.out.println("\n ::::::::::::::: ::::::::::::::: ::::::::::::::: ");
 
             // DEFININDO MACACO REI
 
@@ -297,7 +303,7 @@ public class Jogo {
 
             System.out.println("\n ::::::::: !!! A RAINHA DECIDIU !!! ::::::::: ");
             if (id != 0) {
-                System.out.println("\n O REI DOS MACACOS É " + rei.getNome() + "(" + id + ") !!! ");
+                System.out.println("\n O REI DOS MACACOS É " + rei.getNome() + " (" + id + ") !!! ");
                 resetarMacacos(macacosJogando);
 
                 break;
