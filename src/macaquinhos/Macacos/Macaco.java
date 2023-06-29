@@ -7,6 +7,8 @@ import macaquinhos.Acoes;
 import macaquinhos.Ambientes.Ambiente;
 import macaquinhos.Conexao;
 import macaquinhos.Macacos.macacos_floresta.*;
+import macaquinhos.Macacos.macacos_savana.*;
+import macaquinhos.Macacos.macacos_pantano.*;
 
 public abstract class Macaco implements Acoes {
         
@@ -233,14 +235,14 @@ public abstract class Macaco implements Acoes {
             
             try {
                 while ( rs.next() ) {         
-                    int id = rs.getInt(1);       
+                    int id = rs.getInt( 1 );       
                     String nome = rs.getString( 2 );
                     int pedras = rs.getInt( 3 );
                     int taxaRoubo = rs.getInt( 4 );
                     int qntMaxRoubo = rs.getInt( 5 );
                     int defesaInicial = rs.getInt( 6 );
                     int taxaColeta = rs.getInt( 7 );
-                    int tipo = rs.getInt(8);
+                    int tipo = rs.getInt( 8 );
                     
                     Macaco macaco;
                     
@@ -256,6 +258,24 @@ public abstract class Macaco implements Acoes {
                             break;
                         case 3: 
                             macaco = new Orangotango(nome, id);
+                            break;
+                        case 4: 
+                            macaco = new Bonobo(nome, id);
+                            break;
+                        case 5: 
+                            macaco = new Chimpanze(nome, id);
+                            break;
+                        case 6: 
+                            macaco = new MacacoNarigudo(nome, id);
+                            break;
+                        case 7: 
+                            macaco = new Cesar(nome, id);
+                            break;
+                        case 8: 
+                            macaco = new Gorila(nome, id);
+                            break;
+                        case 9: 
+                            macaco = new Mandril(nome, id);
                             break;
                         default:
                             macaco = new Custom(nome, pedras, taxaColeta, taxaRoubo, qntMaxRoubo, defesaInicial, id);

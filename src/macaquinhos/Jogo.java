@@ -6,9 +6,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import macaquinhos.Macacos.*;
-import macaquinhos.Macacos.macacos_floresta.MacacoPrego;
-import macaquinhos.Macacos.macacos_floresta.MicoLeaoDourado;
-import macaquinhos.Macacos.macacos_floresta.Orangotango;
+import macaquinhos.Macacos.macacos_floresta.*;
+import macaquinhos.Macacos.macacos_savana.*;
+import macaquinhos.Macacos.macacos_pantano.*;
 
 public class Jogo {
 
@@ -272,9 +272,9 @@ public class Jogo {
 
                             int pedrinhas = Macaco.random(1, (int) ((macaco.getPedras() + 2) / 2)) * 2;
 
-                            if (macaco.getPedras() > 20) {
+                             if (macaco.getPedras() > 20) {
                                 pedrinhas = Macaco.random(1, 11) * 2;
-                            }
+                            } 
                             
                             int aumentoDefesa = macaco.distrair(pedrinhas);
                             System.out.print(" " + macaco.getNome() + " (" + j + ") usou " + pedrinhas + " pedrinhas para distrair o próximo macaquinho que tentar roubá-lo! (+ " + aumentoDefesa + "DEF).");
@@ -444,10 +444,25 @@ public class Jogo {
                 macacoAdicionado.cadastrar();
                 break;
             case 2:
+                String listaMacacosPadroes[] = {"ORANGOTANGO", "MACACO-PREGO", "MICO-LEÃO-DOURADO", "BONOBO", "CHIMPANZÉ", "MACACO-NARIGUDO", "GORILA", "MANDRIL", "MACACO-CÉSAR"};
+
                 System.out.println("\n :::::::::::::::::: DEFAULT ::::::::::::::::::");
-                System.out.println("\n 1 - ORANGOTANGO " + 
-                                "\n 2 - MACACO-PREGO " + 
-                                "\n 3 - MICO-LEÃO-DOURADO ");
+
+                System.out.println("\n 1 - FLORESTA " + 
+                                   "\n 2 - SAVANA " + 
+                                   "\n 3 - PÂNTANO ");
+
+                int eHabitat = leituraInt("\n >>> ESCOLHA UM HABITAT (0 PARA SAIR): ", 0, 3);
+                if (eHabitat == 0) break;
+
+                int constant = (eHabitat - 1) * 3;
+                int j = 1;
+
+                System.out.println();
+                for(int i = constant; i < constant + 3; i++) {
+                    System.out.println(" " + j + " - " + listaMacacosPadroes[i]);
+                    j++;
+                }
 
                 int eMacaco = leituraInt("\n >>> QUAL SUA ESCOLHA ? ", 1, 3);
 
@@ -465,24 +480,65 @@ public class Jogo {
 
                 } while (true);
                 
-                switch (eMacaco) {
-                    case 1:
-                        macacoAdicionado = new Orangotango(nome, this.listaMacacos.size() + 1);
-                        this.listaMacacos.add(macacoAdicionado);
-                        macacoAdicionado.cadastrar();
+                switch (eHabitat) {
+                    case 1: 
+                        switch (eMacaco) {
+                            case 1:
+                                macacoAdicionado = new Orangotango(nome, this.listaMacacos.size() + 1);
+                                this.listaMacacos.add(macacoAdicionado);
+                                macacoAdicionado.cadastrar();
+                                break;
+                            case 2:
+                                macacoAdicionado = new MacacoPrego(nome, this.listaMacacos.size() + 1);
+                                this.listaMacacos.add(macacoAdicionado);
+                                macacoAdicionado.cadastrar();
+                                break;
+                            case 3:
+                                macacoAdicionado = new MicoLeaoDourado(nome, this.listaMacacos.size() + 1);
+                                this.listaMacacos.add(macacoAdicionado);
+                                macacoAdicionado.cadastrar();
+                                break;
+                        }
                         break;
                     case 2:
-                        macacoAdicionado = new MacacoPrego(nome, this.listaMacacos.size() + 1);
-                        this.listaMacacos.add(macacoAdicionado);
-                        macacoAdicionado.cadastrar();
+                        switch (eMacaco) {
+                            case 1:
+                                macacoAdicionado = new Bonobo(nome, this.listaMacacos.size() + 1);
+                                this.listaMacacos.add(macacoAdicionado);
+                                macacoAdicionado.cadastrar();
+                                break;
+                            case 2:
+                                macacoAdicionado = new Chimpanze(nome, this.listaMacacos.size() + 1);
+                                this.listaMacacos.add(macacoAdicionado);
+                                macacoAdicionado.cadastrar();
+                                break;
+                            case 3:
+                                macacoAdicionado = new MacacoNarigudo(nome, this.listaMacacos.size() + 1);
+                                this.listaMacacos.add(macacoAdicionado);
+                                macacoAdicionado.cadastrar();
+                                break;
+                        }
                         break;
                     case 3:
-                        macacoAdicionado = new MicoLeaoDourado(nome, this.listaMacacos.size() + 1);
-                        this.listaMacacos.add(macacoAdicionado);
-                        macacoAdicionado.cadastrar();
+                        switch (eMacaco) {
+                            case 1:
+                                macacoAdicionado = new Gorila(nome, this.listaMacacos.size() + 1);
+                                this.listaMacacos.add(macacoAdicionado);
+                                macacoAdicionado.cadastrar();
+                                break;
+                            case 2:
+                                macacoAdicionado = new Mandril(nome, this.listaMacacos.size() + 1);
+                                this.listaMacacos.add(macacoAdicionado);
+                                macacoAdicionado.cadastrar();
+                                break;
+                            case 3:
+                                macacoAdicionado = new Cesar(nome, this.listaMacacos.size() + 1);
+                                this.listaMacacos.add(macacoAdicionado);
+                                macacoAdicionado.cadastrar();
+                                break;  
+                        }
                         break;
                 }
-                
                 System.out.println("\n ! MACACO ADICIONADO COM SUCESSO !");
                 break;
             case 3:
@@ -490,7 +546,7 @@ public class Jogo {
     }
 
     public void removerMacaco() {
-        if (this.listaMacacos.size() <= 3) {
+        if (this.listaMacacos.size() <= 9) {
             System.out.println(" \n ! NÃO EXISTEM MACACOS PARA SEREM REMOVIDOS !");
             return;
         }
@@ -504,7 +560,7 @@ public class Jogo {
             rem = this.leituraInt("\n > INSIRA O MACACO A SER REMOVIDO (EXCETO MACACOS PADRÕES | 0 PARA SAIR): ", 0, this.listaMacacos.size());
             if (rem == 0) return;
 
-            if (rem >= 1 && rem <= 3) {
+            if (rem >= 1 && rem <= 9) {
                 System.out.println("\n NÃO É POSSÍVEL REMOVER MACACOS PADRÕES DO SISTEMA.");
                 continue;
             }
@@ -519,7 +575,7 @@ public class Jogo {
 
     public void editarMacaco() {
 
-        if (this.listaMacacos.size() <= 3) {
+        if (this.listaMacacos.size() <= 9) {
             System.out.println(" \n ! NÃO EXISTEM MACACOS PARA SEREM EDITADOS !");
             return;
         }
@@ -533,7 +589,7 @@ public class Jogo {
             edit = this.leituraInt("\n > INSIRA O MACACO A SER EDITADO (EXCETO MACACOS PADRÕES | 0 PARA SAIR): ", 0, this.listaMacacos.size());
             if (edit == 0) return;
 
-            if (edit >= 1 && edit <= 3) {
+            if (edit >= 1 && edit <= 9) {
                 System.out.println("\n NÃO É POSSÍVEL EDITAR MACACOS PADRÕES DO SISTEMA.");
                 continue;
             }
