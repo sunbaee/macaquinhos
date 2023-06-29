@@ -35,7 +35,7 @@ public abstract class Macaco implements Acoes {
     public Macaco(String nome, int pedras, int taxaColeta, int taxaRoubo, int qntMaxRoubo, int defesaInicial, int id) {
         this.nome = nome;
         
-        this.pedras = pedras;
+        this.pedrasIniciais = this.pedras = pedras;
         
         this.taxaRoubo = taxaRoubo;
         this.taxaColeta = taxaColeta;
