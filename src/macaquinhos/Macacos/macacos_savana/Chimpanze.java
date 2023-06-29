@@ -7,7 +7,7 @@ public class Chimpanze extends Macaco {
     public Chimpanze(String nome, int id) {
         super(nome, id);
         this.pedras = 7;
-        this.taxaRoubo = 50;
+        this.taxaRoubo = 55;
         this.taxaColeta = 15;
         this.qntMaxRoubo = 60;
         this.taxaDefesa = this.defesaInicial = 8;

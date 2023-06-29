@@ -9,8 +9,8 @@ public class Bonobo extends Macaco {
         this.pedras = 5;
         this.taxaRoubo = 45;
         this.taxaColeta = 15;
-        this.qntMaxRoubo = 80;
-        this.taxaDefesa = this.defesaInicial = 10;
+        this.qntMaxRoubo = 90;
+        this.taxaDefesa = this.defesaInicial = 15;
         this.ambiente = Ambiente.ambientes[2];
         this.tipo = 4;
     }

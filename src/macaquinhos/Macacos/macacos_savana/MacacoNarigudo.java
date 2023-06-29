@@ -7,7 +7,7 @@ public class MacacoNarigudo extends Macaco {
     public MacacoNarigudo(String nome, int id) {
         super(nome, id);
         this.pedras = 3;
-        this.taxaRoubo = 55;
+        this.taxaRoubo = 60;
         this.taxaColeta = 17;
         this.qntMaxRoubo = 40;
         this.taxaDefesa = this.defesaInicial = 10;
