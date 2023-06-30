@@ -4,6 +4,13 @@ create table Ambiente (
     dificuldade int not null
 );
 
+insert into ambiente (nome, dificuldate) values 
+('Indefinido', 0),
+('Floresta', 1),
+('Savana', 2),
+('Pântano', 3);
+
+
 create table Macaco (
 	id int not null auto_increment,
     nome varchar(30) not null,
