@@ -5,7 +5,7 @@ create table Ambiente (
 	primary key (id)
 );
 
-insert into ambiente (nome, dificuldate) values 
+insert into ambiente (nome, dificuldade) values 
 ('Indefinido', 0),
 ('Floresta', 1),
 ('Savana', 2),
