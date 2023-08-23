@@ -7,3 +7,6 @@ Dito isso, você possui 3 ações que pode utilizar para aumentar seu número de
 
 Bom jogo!
 
+Feito por mim e Ziguer.
+
+Github do Ziguer: https://github.com/Ziguer
